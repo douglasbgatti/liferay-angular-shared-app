@@ -1,12 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {createMemoryHistory} from 'history';
+
+const history = createMemoryHistory();
+
+console.log(history);
 
 const App = () => (
-  <Router>
+  <Router  basename="web/guest/home/-/react">
     <div>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/home">Home</Link>
         </li>
         <li>
           <Link to="/about">About</Link>
@@ -18,9 +23,9 @@ const App = () => (
 
       <hr />
 
-      <Route exact path="/" component={Home} />
-      <Route path="/about" component={About} />
-      <Route path="/topics" component={Topics} />
+      <Route target="_self" exact path="/home" component={Home} />
+      <Route target="_self" path="/about" component={About} />
+      <Route target="_self" path="/topics" component={Topics} />
     </div>
   </Router>
 );
@@ -52,7 +57,7 @@ const Topics = ({ match }) => (
       </li>
     </ul>
 
-    <Route path={`${match.url}/:topicId`} component={Topic} />
+    <Route target="_self" path={`${match.url}/:topicId`} component={Topic} />
     <Route
       exact
       path={match.url}
@@ -67,4 +72,6 @@ const Topic = ({ match }) => (
   </div>
 );
 
-export default App;
+export default App
+
+export {App};
